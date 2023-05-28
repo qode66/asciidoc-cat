@@ -1,0 +1,22 @@
+# Documentació del llenguatge AsciiDoc
+
+## Quant a AsciiDoc
+
+AsciiDoc és un llenguatge de marcat lleuger i semàntic dissenyat principalment per a l'escriptura de documentació tècnica. El llenguatge es pot utilitzar per produir una varietat de formats de sortida rics en presentació, tots a partir de contingut codificat en un format de text pla concís, llegible per humans.
+
+La sintaxi d'AsciiDoc és intuïtiva perquè es basa en convencions de text net i ben establertes per a marcar i estructurar el text. Algú que no estigui familiaritzat amb AsciiDoc probablement pot endevinar el propòsit de molts dels seus elements de sintaxi només mirant-los. Això es deu al fet que els elements de la sintaxi van ser acuradament escollits per semblar-se al que signifiquen (una pràctica emprada durant molt de temps per la indústria tecnològica).
+
+El llenguatge AsciiDoc no està acoblat al format de sortida que produeix. Un processador AsciiDoc pot analitzar i comprendre un document font AsciiDoc i convertir l'estructura del document analitzat en un o més formats de sortida, com HTML, PDF, EPUB3, pàgina man(ual) o DocBook. La capacitat de produir múltiples formats de sortida és un dels principals avantatges d'AsciiDoc. Aquesta capacitat permet que s'utilitzi en generadors de llocs estàtics, IDEs, eines i serveis git, sistemes CI/CD i altres programaris.
+
+AsciiDoc omple el buit entre la facilitat d'escriptura i els rigorosos requisits de l'autoria tècnica i la publicació. AsciiDoc només requereix un editor de text per llegir o escriure, oferint així una barra baixa per començar.
+
+## Sobre aquesta documentació
+
+Esteu llegint la documentació orientada a l'usuari per al llenguatge AsciiDoc tal com està implementat a Asciidoctor. Aquesta documentació no cobreix com configurar i utilitzar Asciidoctor per processar contingut AsciiDoc. Podeu trobar aquesta documentació a la secció Asciidoctor d'aquest lloc web.
+
+Aquesta documentació s'ha presentat com a contribució inicial per al projecte AsciiDoc Language a Eclipse. Aquest projecte utilitzarà aquesta documentació com a base per a l'elaboració d'una especificació per a la llengua AsciiDoc. També s'utilitzarà com a esborrany de la guia orientada a l'usuari per a la llengua AsciiDoc, que també es mantindrà en aquest projecte.
+Fins que es ratifica la primera versió de l'especificació de la llengua AsciiDoc, l'AsciiDoc es defineix per la implementació de l'Asciidoctor. No hi ha cap altra definició oficial de la llengua.
+
+La documentació d'AsciiDoc romandrà en aquest lloc fins que el projecte AsciiDoc Language comenci a publicar la seva pròpia documentació per a l'AsciiDoc Language.
+
+Fins llavors, comencem!
