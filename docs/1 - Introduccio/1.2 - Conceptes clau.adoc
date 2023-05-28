@@ -1,0 +1,69 @@
+== Conceptes clau
+
+Aquesta pàgina us presenta alguns dels conceptes i termes que trobareu mentre apreneu sobre AsciiDoc. Cada concepte serà cobert en més profunditat més tard en la documentació. Utilitzeu aquesta pàgina com a manera de començar a familiaritzar-vos amb el lingo.
+
+=== Document
+
+Un document representa l'element de bloc de nivell superior a AsciiDoc. Consisteix en una capçalera de document opcional i a) una o més seccions precedides per un preàmbul opcional o b) una seqüència de blocs de nivell superior només.
+
+El document es pot configurar utilitzant una capçalera de document. La capçalera no és un bloc en si, però contribueix amb metadades al document, com ara el títol del document i els atributs del document.
+
+=== Elements
+
+Un element és un fragment de contingut identificable, adreçable i composable en un document. Un document AsciiDoc és simplement una composició de tots els elements que conté.
+
+Els elements són una jerarquia de tipus, on un element pot ser una especialització d'una família d'elements. Per exemple, un bloc de barra lateral és un element de bloc, de manera que comparteix els trets de tots els elements de bloc, i també afegeix alguns dels seus propis.
+
+Els elements inclouen el propi document, seccions, blocs, macros de blocs, salts i frases i macros incloses.
+
+Un element de bloc s'apila verticalment (per línia) per sobre o per sota d'altres elements de bloc. Els elements de bloc es coneixen normalment simplement com a blocs. Els blocs formen l'estructura principal de l'arbre del document.
+
+Un element en línia és una extensió de contingut dins d'un element de bloc o un dels seus atributs (p. ex., un títol de bloc). Els elements inclosos inclouen text formatat (cursiva, negreta, etc), macros incloses i referències d'elements. El que omple el buit entre aquests elements és un text no subscrit. Els elements en línia són menys estructurats que els elements de bloc, ja que estan més orientats cap a substitucions que una estructura d'arbre.
+
+=== Atributs
+
+Un atribut és un parell nom/valor utilitzat per emmagatzemar i revelar metadades en el llenguatge AsciiDoc. Els atributs es poden utilitzar per influir en la sintaxi, controlar el comportament, personalitzar els estils, activar o configurar les integracions, o emmagatzemar contingut de reemplaçament en línia. Els atributs realment defineixen l'AsciiDoc a part d'altres llenguatges de marcat lleugers.
+
+Un atribut és en realitat un terme abstracte. Hi ha dues classificacions concretes d'atributs: atributs de document i atributs d'element.
+
+==== Atributs del document
+
+Els atributs del document, com el seu nom indica, s'associen directament amb el document. S'utilitzen per exportar informació sobre el document en temps d'execució, controlar el comportament del processador i emmagatzemar valors o frases reutilitzables. Per tant, són una mena de canal de comunicació bidireccional amb el processador.
+
+Els atributs del document es poden referenciar en el contingut utilitzant una referència d'atribut (on la substitució d'atribut està habilitada). Un atribut de document es pot definir ja sigui en el document utilitzant una entrada d'atribut (normalment a la capçalera del document) o des de l'API o la CLI. No es poden modificar tots els atributs del document.
+
+==== Atributs de l'element
+
+Els atributs de l'element són metadades sobre un element específic, com un bloc o un element inclòs. Es defineixen en una llista d'atributs i només s'apliquen a aquest element. La ubicació de la llista d'atributs depèn de l'element. El nom de l'atribut pot ser una cadena (és a dir, un atribut amb nom) o un índex numèric implícit (és a dir, un atribut posicional sense nom).
+
+A diferència dels atributs del document, els atributs de l'element no es poden referenciar directament des del contingut, en el model del document. En altres paraules, no es poden resoldre utilitzant una referència d'atribut. Els atributs de l'element enriqueixen o configuren el comportament d'un element, com ara aplicar un rol o establir l'amplada d'una imatge. Un atribut d'element es defineix utilitzant una llista d'atributs en un element, o una abreviatura disponible com una línia de títol de bloc.
+
+=== Macros
+
+Mentre llegiu aquesta documentació, veureu amb freqüència referències al terme macro. Una macro és una sintaxi per a representar elements no textuals o sintaxi que s'expandeix en text utilitzant les metadades proporcionades. Vegeu la macro per a obtenir més informació sobre el significat d'aquest terme.
+
+Aquest és un exemple de macro de blocs:
+
+[source, ASCIIDOC]
+----
+image::sunset.jpg[Sunset]
+----
+
+Aquest és un exemple de macro inclosa:
+
+[source, ASCIIDOC]
+----
+Feu clic al botó amb la imatge:star.png[Star] per a preferir el projecte.
+----
+
+Podeu pensar en una macro com una funció. Una sintaxi de macro segueix la forma d'un nom, un objectiu que de vegades és opcional, i una llista d'atributs que consisteix en zero o més atributs d'elements tancats entre claudàtors.
+
+Hi ha dues variacions d'una macro: bloc i en línia. En una macro de blocs, el nom i la destinació estan separats per dos dos punts (::) i ha de residir en una línia per si mateixa. En una macro en línia, el nom i l'objectiu estan separats per dos punts (:) i pot estar al costat del text i altres elements en línia. Una macro de bloc sempre s'analitza, mentre que una macro en línia només s'analitza quan la substitució de macros està habilitada.
+
+=== Directives del preprocessador
+
+Hi ha una altra sintaxi a l'AsciiDoc que s'assembla molt a macros de blocs, només que no ho són. Aquestes són les directives del preprocessador.
+
+Una directiva de preprocessador és una funció que controla les línies que s'alimenten a l'analitzador. Una directiva de preprocessador condicional pot configurar les línies que s'han d'incloure o excloure basant-se en la presència d'un atribut (ifdef, ifndef) o una altra condició arbitrària (ifeval). Una directiva include pot afegir línies addicionals al document pres d'un altre document.
+
+Les directives del preprocessador comparteixen trets comuns amb una macro de bloc. Com una macro per blocs, una directiva de preprocessador ha d'estar en una línia per si mateixa. Mentre que la directiva del preprocessador pot accedir als atributs del document, no és conscient del context que l'envolta. Només és un processador de línia. Com una macro de blocs, la directiva include pot tenir atributs d'elements, encara que només s'apliquen a la mateixa operació de preprocessament.

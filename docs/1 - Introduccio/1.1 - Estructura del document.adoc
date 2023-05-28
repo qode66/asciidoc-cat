@@ -1,0 +1,100 @@
+== Estructura del document
+
+En aquesta pàgina, aprendreu sobre l'estructura general d'un document AsciiDoc. No us preocupeu pels detalls de la sintaxi en aquest punt. Aquest tema es tractarà més tard en la documentació. Ara mateix, només volem saber què forma un document AsciiDoc.
+
+=== Documents
+
+L'AsciiDoc és un format d'escriptura de text pla sense text normalitzat o pròleg. Un document AsciiDoc pot consistir en només una única frase (o fins i tot un únic caràcter, per ser acadèmic).
+
+L'exemple següent és un document vàlid AsciiDoc amb un únic paràgraf que conté una única frase:
+
+[source, ASCIIDOC]
+----
+Aquest és un document bàsic d'AsciiDoc.
+----
+
+Per descomptat, pots tenir més contingut que una sola frase. El que volem subratllar aquí és que és senzill començar.
+
+Un document AsciiDoc és una sèrie de blocs apilats un sobre l'altre (per línia). Aquests blocs es desplacen entre si per línies buides (tot i que poden ser opcionals en certes circumstàncies).
+
+Per a ampliar el document anterior d'un paràgraf a dos, separareu els dos paràgrafs amb una línia buida:
+
+[source, ASCIIDOC]
+----
+Aquest és un document bàsic d'AsciiDoc.
+
+Aquest document conté dos paràgrafs.
+----
+
+Un document AsciiDoc pot començar amb una capçalera de document. Encara que la capçalera del document és opcional, s'utilitza sovint perquè permet especificar el títol del document i establir la configuració de tot el document i el text reutilitzable en forma d'atributs del document.
+
+[source, ASCIIDOC]
+----
+= Títol del document
+:reproducible:
+
+Aquest és un document bàsic d'AsciiDoc de {author}.
+
+Aquest document conté dos paràgrafs.
+També té una capçalera que especifica el títol del document.
+----
+
+Gairebé qualsevol combinació de blocs constitueix un document vàlid AsciiDoc (amb alguns requisits estructurals dictats pel tipus de document). Els documents poden anar des d'una única frase a un llibre multipart.
+
+=== Línies
+
+La línia és una construcció significativa a AsciiDoc. Una línia es defineix com a text que està separat a cada costat per un caràcter de línia nova o el límit del document. Molts aspectes de la sintaxi han d'ocupar tota una línia. Per això diem que l'AsciiDoc és un llenguatge orientat a línies.
+
+Per exemple, un títol de secció ha d'estar en una línia per si mateix. El mateix passa amb una entrada d'atribut, un títol de bloc, una llista d'atributs de bloc, una macro de bloc, un element de llista, un delimitador de bloc, i així successivament.
+
+_Exemple 1. Exemple d'un títol de secció, que ha d'ocupar una sola línia_
+
+[source, ASCIIDOC]
+----
+== Títol de la secció
+----
+
+_Exemple 2. Exemple d'una entrada d'atribut, que també ha d'ocupar almenys una línia_
+
+[source, ASCIIDOC]
+----
+:name: valor
+----
+
+_Exemple 3. Exemple d'una entrada d'atribut que s'estén a dues línies_
+
+[source, ASCIIDOC]
+----
+:name: valor \
+més valors
+----
+
+Les línies buides també poden ser significatives. Una sola línia buida separa la capçalera del cos. Molts blocs també estan separats per una línia buida, com s'ha vist anteriorment en l'exemple de dos paràgrafs.
+
+En canvi, les línies dins del contingut del paràgraf són insignificants. Recordeu aquests punts quan apreneu sobre la sintaxi de l'AsciiDoc.
+
+=== Blocs
+
+Els blocs en un document AsciiDoc determinen l'estructura del document. Alguns blocs poden contenir altres blocs, de manera que l'estructura del document és inherentment jeràrquica (és a dir, una estructura d'arbres). Podeu previsualitzar aquesta estructura de secció, per exemple, activant la taula de continguts automàtica. Exemples de blocs inclouen paràgrafs, seccions, llistes, blocs delimitats, taules i macros de blocs.
+
+Els blocs són fàcils d'identificar perquè normalment es desplacen d'altres blocs per una línia buida (encara que no sempre es requereix). Els blocs sempre comencen en una línia nova, acaben al final d'una línia i s'alineen al marge esquerre.
+
+Cada bloc pot tenir una o més línies de metadades de bloc. Aquestes metadades poden ser en forma d'atributs de bloc, una àncora de bloc o un títol de bloc. Aquestes línies de metadades 
+han d'estar per sobre i directament adjacents al bloc mateix.
+
+Les seccions, els blocs delimitats no verbals i les cel·les de taula AsciiDoc poden contenir altres blocs. Malgrat el fet que els blocs formen una jerarquia, fins i tot els blocs niats comencen al marge esquerre. En exigir que els blocs comencin al marge esquerre, evita que el tedi hagi de seguir i mantenir els nivells de sagnat i fa que el contingut sigui més reutilitzable.
+
+=== Elements de text i inclosos
+
+Envoltat pels marcadors, delimitadors i línies de metadades és el text. El text és el focus principal d'un document i la raó per la qual la sintaxi AsciiDoc li dóna tant de espai per respirar. El text es troba més sovint en les línies d'un bloc (p. ex., paràgraf), el títol del bloc (p. ex., títol de la secció), i en els elements de la llista, tot i que hi ha altres llocs 
+on pot existir.
+
+El text està subjecte a substitucions. Les substitucions interpreten el marcatge com a format de text, reemplacen les macros amb elements de text o no text, expandeixen les referències d'atributs i realitzen altres tipus de substitució de text.
+
+El text normal està subjecte a totes les substitucions, tret que s'especifiqui el contrari. El text literal està subjecte a un conjunt mínim de substitucions per permetre que es mostri a la sortida tal com apareix a la font. També és possible desactivar totes les substitucions per tal de passar el text a la sortida sense modificar (és a dir, sense processar). L'anàlisi del text acaba sent una barreja d'elements inclosos i altres formes de transformacions.
+
+=== Codificacions i fitxers AsciiDoc
+
+Un fitxer AsciiDoc és un fitxer de text que té l'extensió .adoc (p. ex. document.adoc). La majoria dels processadors AsciiDoc assumeixen que el text del fitxer utilitza la codificació UTF-8. Les codificacions UTF-16 només són compatibles si el fitxer comença amb una BOM.
+
+Un processador AsciiDoc pot processar AsciiDoc des d'una cadena (és a dir, seqüència de caràcters). No obstant això, la majoria de les vegades desareu els vostres documents AsciiDoc en un fitxer.
