@@ -1,0 +1,11 @@
+== Processament de documents
+
+AsciiDoc és específicament un format d'escriptura, no un format editorial. En altres paraules, no és WYSIWYG com quan escrius en un processador de textos. En canvi, el que escriviu és la font AsciiDoc. Després utilitzeu un processador AsciiDoc, com Asciidoctor, per a convertir el codi font AsciiDoc en un format publicable. Aquesta és la sortida que publiqueu.
+
+Convertir el codi font d'AsciiDoc és una oportunitat per interpretar i embellir el vostre contingut per treure'n més del que heu introduït. El treball de convertir la font AsciiDoc a un altre format el gestiona un convertidor. Tot i que hi ha una forta relació entre la llengua i els convertidors, aquests dos aspectes no estan explícitament acoblats.
+
+Un processador AsciiDoc proporciona diversos convertidors integrats, incloent-hi aquells per fer HTML i DocBook. Per a activar un d'aquests convertidors, establiu el dorsal al document (per defecte: html). El dorsal és una paraula clau que indica al processador quin format de sortida voleu crear. El processador llavors selecciona el convertidor que fa aquest format de sortida. Per exemple, el convertidor HTML maneja el dorsal HTML per a fer sortida HTML.
+
+Un processador AsciiDoc realment funciona en dos passos. Primer, analitza el document AsciiDoc. Aquesta anàlisi produeix un document estructurat que reflecteix l'estructura escrita i interpreta tot el marcatge significatiu. El processador passa aquest document estructurat al convertidor per transformar-lo en el format de sortida.
+
+En resum, el processador accepta una cadena (que es pot llegir des d'un fitxer), l'analitza en un document d'estructura i després produeix una altra cadena (que es pot escriure en un fitxer)

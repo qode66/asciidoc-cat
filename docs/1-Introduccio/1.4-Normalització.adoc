@@ -1,0 +1,14 @@
+== Normalització
+
+Quan un processador AsciiDoc llegeix la font AsciiDoc, el primer que fa és normalitzar les línies. (Aquesta operació es pot realitzar cap amunt o mentre es visita cada línia).
+
+La normalització consisteix en les operacions següents:
+
+* Força la codificació a UTF-8 (un processador AsciiDoc sempre assumeix que el contingut està codificat en UTF-8)
+* Elimina els espais finals de cada línia (incloent-hi qualsevol caràcter de final de línia)
+
+Aquesta normalització es realitza independentment de qualsevol context estructurat. No importa si la línia forma part d'un bloc literal o d'un paràgraf regular. Totes les línies es normalitzen.
+
+La normalització només s'aplica en alguns casos a les línies d'un fitxer d'inclusió. Inclou només els fitxers que tenen una extensió AsciiDoc reconeguda, es normalitzen tal com s'ha descrit anteriorment. Per a tots els altres fitxers, només s'elimina el caràcter final de línia. Incloure fitxers també pot tenir una codificació diferent, que s'especifica utilitzant l'atribut de codificació. Si no s'especifica l'atribut de codificació, s'assumeix UTF-8.
+
+Quan el processador AsciiDoc torna a ajuntar les línies per a produir el document renderitzat (HTML, DocBook, etc), s'uneix a les línies del caràcter de final de línia (\n).
