@@ -1,0 +1,227 @@
+== Blocs
+
+:icons: image
+:iconsdir: ./../icons
+
+
+Els elements de bloc formen l'estructura principal d'un document AsciiDoc, començant pel propi document.
+
+=== Què és un bloc?
+
+Un element de bloc (també conegut com a bloc) és un fragment discret i orientat a línies de contingut en un document AsciiDoc. Un cop analitzat, aquest fragment de contingut es converteix en un element de bloc en el model de document analitzat. Alguns blocs poden contenir altres blocs, així que diem que els blocs es poden niar. El convertidor visita cada bloc al seu torn, en ordre del document, convertint-lo a un fragment corresponent de sortida.
+
+=== Com es formen els blocs
+
+Com es defineixen els límits d'un bloc en la sintaxi AsciiDoc varia. Els límits d'alguns blocs, com llistes, paràgrafs i macros de blocs, són implícits. Altres blocs tenen límits que es marquen explícitament utilitzant delimitadors (és a dir, blocs delimitats). La principal comunitat és que un bloc sempre està orientat a línies.
+
+Un bloc de paràgraf es defineix com un conjunt discret de línies contigües (no buides). Un bloc delimitat està delimitat per línies delimitadores. Un bloc de secció (o secció) es defineix per un títol de secció que està prefixat per un o més signes iguals. La secció inclou tot el contingut que segueix la línia del títol de la secció fins al següent títol de la secció germana o pare o el límit del document. Un bloc de llista es defineix per un grup d'elements de llista germans, cadascun denotat per un marcador. Un bloc de llista de descripció es defineix per un grup germà d'elements de llista, cadascun denotat per un o més termes. Una macro de bloc es defineix per una sola línia que coincideix amb la sintaxi de la macro de bloc. I el document també és un bloc.
+
+Un bloc (incloent-hi les seves línies de metadades) sempre hauria d'estar delimitat per una línia buida o un límit del document a cada costat.
+
+Si un bloc admet o no blocs niats depèn del model de contingut del bloc (i el que la sintaxi permet).
+
+=== Model de contingut
+
+El model de contingut d'un bloc determina quin tipus de contingut pot tenir el bloc (si n'hi ha) i com es processa aquest contingut. Els models de contingut dels blocs d'AsciiDoc són els següents:
+
+* *_compound_* : un bloc que només pot contenir altres blocs (p. ex., una secció) 
+* *_simple_*: un bloc que es tracta com a línies contigües de text de paràgraf (i subjecte a substitucions normals) (p. ex., un bloc de paràgraf)
+* *_verbatim_* : un bloc que conté text literal (mostrat «com és») (i subjecte a substitucions literals) (p. ex., un bloc de llistat)
+* *_raw_* : un bloc que conté contingut no processat passat directament a la sortida sense substitució aplicada (p. ex., un bloc de pas)
+* *_empty_* : un bloc que no té contingut (p. ex., un bloc d'imatge)
+* *_table_* : un model de contingut especial reservat per a taules que obliguen a una estructura fixa
+
+El model de contingut és inferit per a tota la sintaxi integrada (com determina el context), però es pot configurar per a blocs personalitzats. Els blocs també poden suportar diferents models de contingut en circumstàncies diferents. La circumstància està determinada pel context i l'estil, i en el cas d'un bloc delimitat, el contenidor estructural també.
+
+=== Context
+
+Sovint podeu escoltar un bloc referit amb un nom, com un bloc d'exemple, un bloc de barra lateral, un bloc d'admonició o una secció. Aquest nom és el context del bloc.
+
+Considerem la següent secció normal:
+
+[source, ASCIIDOC]
+----
+== Títol de la secció
+
+Contingut de la secció.
+----
+
+El context d'aquest bloc és `section`. Sovint ens referim a això com una secció (o bloc de secció), utilitzant el context com un adjectiu per descriure el bloc. L'escriptor no ha d'especificar el context en aquest cas, ja que està implícit per la sintaxi.
+
+Cada bloc té un context. El context és sovint implícit per la sintaxi, però pot ser declarat explícitament en certs casos. El context és el que distingeix un tipus de bloc d'un altre. Podeu pensar en el context com el tipus del bloc.
+
+El context es pot modificar encara més utilitzant un estil de bloc per crear una família de blocs que comparteixen un tipus comú, com és el cas dels blocs d'admonició i seccions. En breu cobrirem aquest modificador.
+
+Per a blocs, el context de vegades es coneix com el nom del bloc. Això sorgeix especialment quan es parla de blocs personalitzats. El nom del bloc és només una altra capa d'abstracció. Tots els noms de blocs integrats s'assignen exactament a un context. Però una extensió de bloc pot assignar un nom de bloc arbitrari a un o més contextos. El context que s'utilitza en última instància depèn del que es retorna del mètode de procés de l'extensió. Al final, és el context el que determina com es converteix el bloc.
+
+El context sovint determina el model de contingut. Per exemple, totes les seccions tenen implícitament el model de contingut compost perquè una secció només pot contenir altres blocs. Tots els blocs literals tenen implícitament el model de contingut literal perquè el propòsit d'aquest bloc és presentar la sortida literal.
+
+==== Resum de contextos integrats
+
+Aquí hi ha una llista dels contexts de tots els blocs integrats a AsciiDoc.
+
+NOTE: A l'API d'Asciidoctor, els contexts es representen com a símbols. En Ruby, un símbol és un nom prefixat amb dos punts (p. ex., :listing). Aquesta documentació a vegades utilitza aquesta notació quan es refereix al nom d'un context. No obstant això, aquesta notació no és universal. Alguns processadors, com Asciidoctor.js, emmagatzemen el context com una cadena de text.
+
+_Blocs integrats_ 
+
+[cols="1,3"]
+|===
+|Name |Propòsit
+
+|admonition
+|Un dels cinc blocs d'admonició.
+
+|audio
+|Un bloc d'audio
+
+|colist
+|Una llista de llegenda.
+
+|dlist
+|Una llista de descripció
+
+|document
+|El document de nivell superior o el document en una cel·la de taula AsciiDoc
+
+|example
+|Un bloc d'exemple.
+
+|floating_title
+|Un encapçalament discret.
+
+|image
+|Un bloc d'imatge.
+
+|list_item
+|Un element en una llista ordenada, sense ordenar o de descripció (només és rellevant dins d'un bloc de llista o llista de descripció). En una llista de descripció, aquest bloc s'utilitza per representar el terme i la descripció.
+
+|listing
+|Un bloc de llistat.
+
+|literal
+|Un bloc literal.
+
+|olist
+|Una llista ordenada.
+
+|open
+|Un bloc obert.
+
+|page_break
+|Un salt de pàgina.
+
+|paragraph
+|Un paragraf.
+
+|pass
+|Un bloc de pas.
+
+|preamble
+|El preàmbul del document.
+
+|quote
+|Un bloc de cita (conegut com a blockquote).
+
+|section
+|Una secció. També pot ser una part, capítol o secció especial.
+
+|sidebar
+|Un bloc de barra lateral.
+
+|table
+|Un bloc de taula.
+
+|table_cell
+|Una cel·la de taula (només rellevant dins d'un bloc de taula).
+
+|thematic_break
+|Un trencament temàtic (també conegut com a regla horitzontal).
+
+|toc
+|Un bloc de la taula del contingut (per designar la ubicació personalitzada de la taula del contingut).
+
+|ulist
+|Una llista no ordenada.
+
+|verse
+|Un bloc de versos.
+
+|video
+|Un bloc de vídeo
+|===
+
+NOTE: Cada element inclòs també té un context, però aquests elements no són (encara) accessibles des del model de document analitzat.
+
+Es poden introduir contextos addicionals mitjançant l'ús de punts d'extensió de blocs, macros de blocs o macros en línia.
+
+==== Contexts utilitzats pel convertidor
+
+El context és el que el convertidor utilitza per enviar a un mètode de conversió. L'estil és llavors utilitzat pel convertidor per aplicar comportament especial a blocs de la mateixa família.
+
+Amb dues excepcions, hi ha un mapatge d'1 a 1 entre els contextos i els mètodes del gestor d'un convertidor. Aquestes excepcions són els contextos `list_item` i `table_cell`, que no s'assignen a un mètode de control. Al convertidor, s'ha d'accedir a aquests blocs des del seu bloc pare.
+
+=== Estil del bloc
+
+El context no sempre explica tota la història de la identitat d'un bloc. Alguns blocs requereixen especialització. Aquí és on entra en joc l'estil de bloc.
+
+Per sobre d'alguns blocs, podeu veure un nom al començament de la llista d'atributs de blocs (p. ex., `[source]` o `[verse]`). El primer atribut posicional (sense nom) de la llista d'atributs de bloc s'utilitza per a declarar l'estil de bloc.
+
+L'estil de bloc declarat és el valor que l'autor subministra. Aquest valor s'interpreta i es resol. L'estil de bloc resolt, si no és buit, especialitza el context del bloc. (En canvi, pot alterar el context del bloc, o a més a més).
+
+Considereu el següent exemple d'un bloc d'origen:
+
+[source,ASCIIDOC]
+----
+
+    [font,ruby]
+    ----
+    puts "Hola, món!"
+    ----
+
+----
+
+El context d'un bloc d'origen és `listing` (com s'infereix dels delimitadors de blocs) i l'estil és `source` (com especifica l'escriptor). Diem que l'estil especialitza el bloc com a bloc d'origen. (Tècnicament, la presència d'una llengua d'origen ja implica l'estil d'origen, però sota les cobertes això és el que està passant). El context del bloc encara és el mateix, però té metadades addicionals per indicar que requereix un processament especial.
+
+També veiem l'estil de bloc utilitzat per a altres propòsits. L'estil de bloc `appendix` (p. ex. `[appendix]`) per sobre del títol de la secció s'especialitza en la secció com a apèndix (una secció especial) i per tant té una semàntica i comportament especials. En el model, l'estil de la secció s'emmagatzema dualment com a `sectname`. Un dels cinc estils d'admonició (p. ex., [TIP]) a sobre d'un bloc d'exemple transforma el bloc d'exemple en un bloc d'admonició amb aquest nom (p. ex., label). En el model, l'estil d'admonició en minúscules s'emmagatzema en l'atribut name. Un estil de bloc (p. ex. `[circle]` o `[loweralpha]`) a sobre d'una llista desordenada o ordenada, respectivament, altera el marcador utilitzat davant dels elements de la llista quan es mostra. Un estil de bloc (p. ex., `[qanda]` i `[horizontal]`) a sobre d'una llista de descripció pot canviar la seva semàntica o disposició.
+
+L'estil de bloc declarat es pot utilitzar per canviar el context d'un bloc, conegut com a mascarada de bloc. Considereu el cas d'aquesta sintaxi alternativa per a un bloc de llistat utilitzant els delimitadors de blocs literals.
+
+[source,ASCIIDOC]
+----
+    [listing]
+    ...
+    a > b
+    ...
+----
+
+Atès que l'estil de bloc declarat coincideix amb el nom d'un context, el context del bloc esdevé llistat i l'estil de bloc resolt roman sense establir. Això vol dir que l'estil de bloc resolt difereix de l'estil de bloc declarat. Per obtenir més informació sobre com canviar el context d'un bloc utilitzant l'estil de bloc declarat, vegeu Bloqueja l'emmascarament.
+
+Per obtenir una imatge completa de la identitat d'un bloc, heu de considerar tant el context com l'estil. L'estil resolt s'especialitza en el context per donar-li un comportament o semàntica especials.
+
+=== Propietats comunes dels blocs
+
+Els blocs es defineixen utilitzant alguna forma de sintaxi orientada a línies. Els blocs de secció comencen amb una línia de títol de secció. Els blocs delimitats estan tancats en un parell de línies delimitadores coincidents. Els blocs de paràgraf han de ser línies contigües.
+
+Tots els blocs acomoden zero o més línies de metadades apilades linealment directament a la part superior del bloc. Aquestes línies omplen les propietats del bloc, com ara l'ID, el títol i les opcions. Aquestes línies de metadades són les següents:
+
+* Zero o més línies d'atribut de bloc (que omplen els atributs del bloc)
+* Una línia d'ancoratge de blocs opcional
+* Una línia opcional de títol de bloc (molts blocs també admeten una llegenda corresponent)
+* Un ID opcional
+* Un conjunt opcional de rols
+* Un conjunt opcional d'opcions
+
+Per exemple, considereu un bloc de barra lateral amb un títol i un ID:
+
+[source,ASCIIDOC]
+----
+    .Estils de música
+    [#estils musicals]
+    ****
+    Vés a una tangent per descriure què és un estil de música.
+    ****
+----
+
+Quan es tracta de processar contingut, els blocs es divideixen en diferents grups. Aquests grups estan associats principalment amb el model de contingut del bloc.
+
+Els blocs de paràgraf i els blocs literals (verbatim) tenen un conjunt implícit i modificable de substitucions. Les substitucions no s'apliquen als blocs compostos (és a dir, blocs que poden contenir blocs niats).
