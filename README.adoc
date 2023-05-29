@@ -1,0 +1,19 @@
+= asciidoc-cat
+CartroTech <cartrotech@gmail.com>; Q. Serrano
+
+:icons: image
+:iconsdir: ./icons
+:imagesdir: ./imatges
+
+**Traducció al català/valencià de AsciiDoc Language**
+
+image::asciidoctor-logo.svg[Asciidoc logo,150,150]
+
+== Contingut
+
+. link:./docs/1-Introduccio.adoc[Introducció]
+** link:./docs/1.1-Estructura_del_document.adoc[Estructura del document]
+** link:./docs/1.2-Conceptes_clau.adoc[Conceptes clau]
+** link:./docs/1.3-Processament_de_documents.adoc[Processament de documents]
+** link:./docs/1.4-Normalització.adoc[Normalització]
+. link:./docs/2-Blocs.adoc[Blocs]
